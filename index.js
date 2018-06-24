@@ -41,6 +41,7 @@ async function store({start, end, data, ...other}) {
 
 function runTest() {
   return new Promise((resolve, reject) => {
+    console.log('starting speed test ...');
     const start = new Date();
     const test = speedTest({ maxTime: 5000 });
     test.on('data', data => {
