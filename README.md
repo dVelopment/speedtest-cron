@@ -38,7 +38,8 @@ yarn start
 	    "cwd": "/home/user/speedtest-cron",
 	    "script": "index.js",
 	    "exec_interpreter": "/home/user/.nvm/versions/node/v8.9.4/bin/node",
-	    "cron_restart": "0 * * * *"
+	    "cron_restart": "0 * * * *",
+	    "autorestart": false
 	}
 	```
 
