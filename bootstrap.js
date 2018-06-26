@@ -56,9 +56,11 @@ if (cluster.isMaster) {
     run().then(
         () => {
             console.log('test finished');
+            process.exit(0);
         },
         error => {
             console.error('error running test', error);
+            process.exit(1);
         },
     );
 }
