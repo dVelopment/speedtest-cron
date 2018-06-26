@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "dotenv": "^6.0.0",
+    "later": "^1.2.0",
     "meteor-random-node": "^0.0.5",
     "mongodb": "^3.0.10",
     "speedtest-net": "^1.4.3"

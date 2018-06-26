@@ -4,15 +4,11 @@ require('dotenv').config();
 
 const cluster = require('cluster');
 const run = require('./run');
+const later = require('later');
 
-const WAIT_SECONDS = process.env.WAIT_SECONDS
-    ? parseInt(process.env.WAIT_SECONDS, 10)
-    : 3600;
-const WAIT_MS = WAIT_SECONDS * 1000;
+const CRON_PATTERN = process.env.CRON_PATTERN || '0 * * * *';
 
-let interval;
 let currentWorker;
-let lastTest;
 let running = false;
 
 function closeWorker() {
@@ -21,12 +17,11 @@ function closeWorker() {
     }
 }
 
-function scheduler() {
-    if (!running && (!lastTest || Date.now() - lastTest >= WAIT_MS)) {
+function startWorker() {
+    if (!running) {
         closeWorker();
-        lastTest = Date.now();
-        running = true;
         currentWorker = cluster.fork();
+        running = true;
     }
 }
 
@@ -42,15 +37,17 @@ if (cluster.isMaster) {
         );
     });
 
-    interval = setInterval(scheduler, 1000);
+    const schedule = later.parse.cron(CRON_PATTERN);
+    const timer = later.setInterval(startWorker, schedule);
 
     process.on('exit', () => {
         closeWorker();
-        clearInterval(interval);
+        timer.clear();
     });
     process.on('SIGINT', () => {
         console.log('SIGINT received');
-        closeWorker(), clearInterval(interval);
+        closeWorker();
+        timer.clear();
         process.exit(0);
     });
 } else {
@@ -59,11 +56,9 @@ if (cluster.isMaster) {
     run().then(
         () => {
             console.log('test finished');
-            process.exit(0);
         },
         error => {
             console.error('error running test', error);
-            process.exit(1);
         },
     );
 }

@@ -78,6 +78,10 @@ https-proxy-agent@^2.1.1:
     agent-base "^4.1.0"
     debug "^3.1.0"
 
+later@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/later/-/later-1.2.0.tgz#f2cf6c4dd7956dd2f520adf0329836e9876bad0f"
+
 meteor-random-node@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/meteor-random-node/-/meteor-random-node-0.0.5.tgz#76473b07e8d1af7f92a5b7c36b2cc0272c988638"
