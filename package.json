@@ -5,7 +5,7 @@
     "mongodb": "^3.0.10",
     "speedtest-net": "^1.4.3"
   },
-  "main": "index.js",
+  "main": "bootstrap.js",
   "scripts": {
     "start": "node ."
   }

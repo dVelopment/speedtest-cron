@@ -1,4 +1,5 @@
 # speedtest-cron
+
 run a speed test and store the result to MongoDB
 
 ## Setup
@@ -22,28 +23,26 @@ yarn start
 
 ## Advanced setup (cronjob via [pm2](https://pm2.io/))
 
-1. install pm2 (shown with using nvm)
+1.  install pm2 (shown with using nvm)
 
-	```shell
-	cd path/to/speedtest-cron
-	nvm i
-	npm i -g pm2
-	```
-	
-1. create a config file `/home/user/speedtests.json`
+    ```shell
+    cd path/to/speedtest-cron
+    nvm i
+    npm i -g pm2
+    ```
+
+1.  create a config file `/home/user/speedtests.json`
 
     ```json
     {
-	    "name": "speedtests",
-	    "cwd": "/home/user/speedtest-cron",
-	    "script": "index.js",
-	    "exec_interpreter": "/home/user/.nvm/versions/node/v8.9.4/bin/node",
-	    "cron_restart": "0 * * * *",
-	    "autorestart": false
-	}
-	```
+        "name": "speedtests",
+        "cwd": "/home/user/speedtest-cron",
+        "script": "bootstrap.js",
+        "exec_interpreter": "/home/user/.nvm/versions/node/v8.9.4/bin/node"
+    }
+    ```
 
-1. start it
+1.  start it
 
     ```shell
     cd ~
@@ -53,4 +52,3 @@ yarn start
 
     You might want to follow the instructions of
     `pm2 startup` to setup restarting jobs after reboot.
-    
